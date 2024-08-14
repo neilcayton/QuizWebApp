@@ -1,0 +1,46 @@
+package com.quizWebApp.quizapp.controller;
+
+
+import com.quizWebApp.quizapp.Question;
+import com.quizWebApp.quizapp.service.QuestionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("question")
+public class QuestionController {
+    @Autowired
+    QuestionService questionService;
+
+    @GetMapping("allQuestions")
+    public ResponseEntity<List<Question> > getAllQuestions(){
+        return questionService.getAllquestions() ;
+    }
+
+    @GetMapping("category/{category}")
+    public ResponseEntity<List<Question>> getQuestionCategory(@PathVariable String category){
+        return questionService.getQuestionsByCategory(category);
+    }
+
+    @GetMapping("difficulty/{difficultylevel}")
+    public  ResponseEntity<List<Question>> getQuestionDifficulty(@PathVariable String difficultylevel){
+        return questionService.getQuestionsByDifficulty(difficultylevel);
+    }
+
+    @PostMapping("add")
+    public  ResponseEntity<String> addQuestion(@RequestBody Question question){
+        return questionService.addQuestion(question);
+    }
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<String>  deleteQuestion(@PathVariable int id){
+        return questionService.deleteQuestion(id);
+
+    }
+
+}
