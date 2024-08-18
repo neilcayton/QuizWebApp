@@ -1,7 +1,7 @@
 package com.quizWebApp.quizapp.service;
 
 
-import com.quizWebApp.quizapp.Question;
+import com.quizWebApp.quizapp.model.Question;
 import com.quizWebApp.quizapp.dao.QuestionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,13 +34,13 @@ public class QuestionService {
         return new ResponseEntity<>(questionDao.findByCategory(category), HttpStatus.BAD_REQUEST);
     }
 
-    public  ResponseEntity<List<Question>> getQuestionsByDifficulty(String difficultylevel) {
+    public  ResponseEntity<List<Question>> getQuestionsByDifficulty(String difficultyLevel) {
         try {
-            return new ResponseEntity<>(questionDao.findByDifficultylevel(difficultylevel), HttpStatus.OK);
+            return new ResponseEntity<>(questionDao.findByDifficultyLevel(difficultyLevel), HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
         }
-        return new ResponseEntity<>(questionDao.findByDifficultylevel(difficultylevel), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(questionDao.findByDifficultyLevel(difficultyLevel), HttpStatus.BAD_REQUEST);
 
     }
 

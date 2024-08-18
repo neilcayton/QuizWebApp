@@ -1,11 +1,9 @@
 package com.quizWebApp.quizapp.controller;
 
 
-import com.quizWebApp.quizapp.Question;
+import com.quizWebApp.quizapp.model.Question;
 import com.quizWebApp.quizapp.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +25,9 @@ public class QuestionController {
         return questionService.getQuestionsByCategory(category);
     }
 
-    @GetMapping("difficulty/{difficultylevel}")
-    public  ResponseEntity<List<Question>> getQuestionDifficulty(@PathVariable String difficultylevel){
-        return questionService.getQuestionsByDifficulty(difficultylevel);
+    @GetMapping("difficulty/{difficultyLevel}")
+    public  ResponseEntity<List<Question>> getQuestionDifficulty(@PathVariable String difficultyLevel){
+        return questionService.getQuestionsByDifficulty(difficultyLevel);
     }
 
     @PostMapping("add")

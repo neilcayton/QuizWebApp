@@ -1,7 +1,8 @@
 package com.quizWebApp.quizapp.dao;
 
-import com.quizWebApp.quizapp.Question;
+import com.quizWebApp.quizapp.model.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,5 +10,9 @@ import java.util.List;
 @Repository
 public interface QuestionDao extends JpaRepository<Question, Integer> {
     List<Question> findByCategory(String category);
-    List<Question> findByDifficultylevel(String difficultylevel);
+    List<Question> findByDifficultyLevel(String difficultyLevel);
+
+
+    @Query(value = "SELECT * FROM question q WHERE q.category=:category ORDER BY RANDOM() LIMIT :numQ",nativeQuery = true)
+    List<Question> findRandomQuestionsByCategory(String category, int numQ);
 }
