@@ -1,10 +1,10 @@
 package com.quizWebApp.quizapp.controller;
 
-import com.quizWebApp.quizapp.model.Question;
 import com.quizWebApp.quizapp.model.QuestionWrapper;
+import com.quizWebApp.quizapp.model.Response;
 import com.quizWebApp.quizapp.service.QuizService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +26,8 @@ public class QuizController {
 
 
     @PostMapping("submit/{id}")
-    ResponseEntity<String> submitAnswer(@PathVariable Integer id){
-        return quizService.checkCorrectAnswer(id);
+    ResponseEntity<Integer> submitAnswer(@PathVariable Integer id, @RequestBody List<Response> responses){
+        return quizService.checkCorrectAnswer(id, responses);
     }
 
     @GetMapping("get/{quizId}")

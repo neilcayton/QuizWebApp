@@ -5,6 +5,8 @@ import com.quizWebApp.quizapp.dao.QuizDao;
 import com.quizWebApp.quizapp.model.Question;
 import com.quizWebApp.quizapp.model.QuestionWrapper;
 import com.quizWebApp.quizapp.model.Quiz;
+import com.quizWebApp.quizapp.model.Response;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +58,22 @@ public class QuizService {
         return new ResponseEntity<>(questionsForUser, HttpStatus.OK);
     }
 
-    public ResponseEntity<String> checkCorrectAnswer(Integer id) {
-    
+    public ResponseEntity<Integer> checkCorrectAnswer(Integer id, List<com.quizWebApp.quizapp.model.Response> responses) {
+        Optional<Quiz> quiz = quizDao.findById(id);
+        List<Question> questions = quiz.get().getQuestions();
+
+
+        int right = 0;
+        int i = 0;
+
+        for (Response response: responses) {
+            if (response.getResponse().equals(questions.get(i).getRightAnswer())){
+                right++;
+            }
+            i++;
+        }
+        return new ResponseEntity<>(right, HttpStatus.OK);
+
+
     }
 }
